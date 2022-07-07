@@ -16,8 +16,8 @@ namespace AdapterPattern
         /// </summary>
         class UserManager
         {
-            UserConnection _userConnection;
-            public UserManager(UserConnection userConnection)
+            IUserConnection _userConnection;
+            public UserManager(IUserConnection userConnection)
             {
                 _userConnection = userConnection;
             }
@@ -30,7 +30,7 @@ namespace AdapterPattern
         /// <summary>
         /// Kullanıcıları getirmek üzere çalışacak metodun imzası
         /// </summary>
-        interface UserConnection
+        interface IUserConnection
         {
             void GetUsers();
         }
@@ -38,7 +38,7 @@ namespace AdapterPattern
         /// <summary>
         /// Kullanıcıların db den geleceği fonksiyon
         /// </summary>
-        class UserDbConnection : UserConnection
+        class UserDbConnection : IUserConnection
         {
             public void GetUsers()
             {
@@ -49,7 +49,7 @@ namespace AdapterPattern
         /// <summary>
         /// Kullanıcıları getirirken farklı bir sisteme adapte olunacak kodların yazıldığı class
         /// </summary>
-        class UserAnotherServiceAdapter : UserConnection
+        class UserAnotherServiceAdapter : IUserConnection
         {
             AnotherService anotherService = new AnotherService();
             public void GetUsers()
